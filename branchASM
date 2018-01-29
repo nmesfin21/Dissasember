@@ -1,0 +1,6 @@
+{0} SUB.B #1,D1         * 
+    BEQ   PRINTLINE_SR  * 
+    LSL.L #1,D0         * 
+    BCC   {1}           * 
+    BCS   {2}           *
+    

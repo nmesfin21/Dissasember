@@ -1,0 +1,415 @@
+00000000 Starting Address
+Assembler used: EASy68K Editor/Assembler v5.15.04
+Created On: 11/18/2017 2:50:52 PM
+
+00000000                             1                                                              *Decode ADDA instruction
+00000000                             2                                                              *D0 will be size
+00000000                             3                                                              *D1 will be address register
+00000000                             4                                                              *D3 will be mode
+00000000                             5                                                              *D4 will be register
+00000000                             6                                                              *D5 is immediate/source address
+00000000                             7                                                              *D6 is dest address
+00000000  4280                       8                          CLR.L       D0
+00000002  4281                       9                          CLR.L       D1
+00000004  4282                      10                          CLR.L       D2
+00000006  4283                      11                          CLR.L       D3
+00000008  4284                      12                          CLR.L       D4
+0000000A  4285                      13                          CLR.L       D5
+0000000C  4286                      14                          CLR.L       D6
+0000000E  4287                      15                          CLR.L       D7
+Line 16 ERROR: Undefined symbol
+00000010  43F9 004DBB8E             16                          LEA         LINESTARTLOC,A1
+00000016                            17  
+00000016                            18  
+00000016  1011                      19                          MOVE.B      (A1),D0
+00000018  0200 0001                 20                          ANDI.B      #%00000001,D0           *we only need the last last bit
+0000001C                            21  
+0000001C                            22  
+0000001C  1411                      23                          MOVE.B      (A1),D2                 *address register
+0000001E  0202 000E                 24                          ANDI.B      #%00001110,D2           *We only need the address register
+00000022  E20A                      25                          LSR.B       #1,D2
+00000024                            26  
+00000024                            27  
+00000024                            28  
+00000024  3611                      29                          MOVE.W      (A1),D3                 *mode
+00000026  0243 0038                 30                          ANDI.W      #%0000000000111000,D3   *we only care about the three bits
+0000002A  E60B                      31                          LSR.B       #3,D3
+0000002C                            32  
+0000002C  1E19                      33                          MOVE.B      (A1)+,D7
+0000002E  1819                      34                          MOVE.B      (A1)+,D4                *register
+00000030  0204 0007                 35                          ANDI.B      #%00000111,D4           *We only care about the last bit
+00000034                            36  
+00000034  4247                      37                          CLR         D7
+00000036                            38  
+00000036                            39  
+00000036                            40  
+00000036                            41  ADDA_VALIDITY
+00000036  B83C 0000                 42                          CMP.B       #%000,D4                *Lets check the source register
+0000003A  6700 0026                 43                          BEQ         ADDA_SR_VALID
+0000003E  B83C 0001                 44                          CMP.B       #%001,D4
+00000042  6700 001E                 45                          BEQ         ADDA_SR_VALID
+00000046  B83C 0002                 46                          CMP.B       #%010,D4
+0000004A  6700 0016                 47                          BEQ         ADDA_SR_VALID
+0000004E  B83C 0003                 48                          CMP.B       #%011,D4
+00000052  6700 000E                 49                          BEQ         ADDA_SR_VALID
+00000056  B83C 0004                 50                          CMP.B       #%100,D4
+0000005A  6700 0006                 51                          BEQ         ADDA_SR_VALID
+0000005E  6000 0334                 52                          BRA         ADDA_DECODE_ERR
+00000062                            53  
+00000062                            54  
+00000062                            55  
+00000062                            56  
+00000062                            57  
+00000062                            58  ADDA_SR_VALID                                               * VALIDATES THE OPCODES
+00000062                            59                                                              * Lets check the Address register
+00000062  B43C 0000                 60                          CMP.B       #%000,D2
+00000066  6700 003E                 61                          BEQ         ADDA_ADDREG_VALID
+0000006A  B43C 0001                 62                          CMP.B       #%001,D2
+0000006E  6700 0036                 63                          BEQ         ADDA_ADDREG_VALID
+00000072  B43C 0002                 64                          CMP.B       #%010,D2
+00000076  6700 002E                 65                          BEQ         ADDA_ADDREG_VALID
+0000007A  B43C 0003                 66                          CMP.B       #%011,D2
+0000007E  6700 0026                 67                          BEQ         ADDA_ADDREG_VALID
+00000082  B43C 0004                 68                          CMP.B       #%100,D2
+00000086  6700 001E                 69                          BEQ         ADDA_ADDREG_VALID
+0000008A  B43C 0005                 70                          CMP.B       #%101,D2
+0000008E  6700 0016                 71                          BEQ         ADDA_ADDREG_VALID
+00000092  B43C 0006                 72                          CMP.B       #%110,D2
+00000096  6700 000E                 73                          BEQ         ADDA_ADDREG_VALID
+0000009A  B43C 0007                 74                          CMP.B       #%111,D2
+0000009E  6700 0006                 75                          BEQ         ADDA_ADDREG_VALID
+000000A2  6000 0002                 76                          BRA         ADDA_ADDREG_VALID
+000000A6                            77  
+000000A6                            78  
+000000A6                            79  ADDA_ADDREG_VALID                                           *WE ARE HERE IF THE ADDRESS REGISTER IS VALID
+000000A6                            80                                                              *LET'S CHECK THE SIZE
+000000A6  B03C 0000                 81                          CMP.B       #%0,D0
+000000AA  6700 000E                 82                          BEQ         ADDA_SIZE_VALID
+000000AE  B03C 0001                 83                          CMP.B       #%1,D0
+000000B2  6700 0006                 84                          BEQ         ADDA_SIZE_VALID
+000000B6  6000 02DC                 85                          BRA         ADDA_DECODE_ERR
+000000BA                            86  
+000000BA                            87  
+000000BA                            88  ADDA_SIZE_VALID                                             *WE ARE HERE IF THE SIZE AND ADDRESS REGISTER ARE VALID
+000000BA                            89                                                              *LETS CHECK THE MODE
+000000BA                            90                                                              *THE MODE CAN BE ANYTHING
+000000BA                            91  
+000000BA  B63C 0000                 92                          CMP.B       #%000,D3
+000000BE  6700 0036                 93                          BEQ         ADDA_MODE_VALID
+000000C2  B63C 0001                 94                          CMP.B       #%001,D3
+000000C6  6700 002E                 95                          BEQ         ADDA_MODE_VALID
+000000CA  B63C 0002                 96                          CMP.B       #%010,D3
+000000CE  6700 0026                 97                          BEQ         ADDA_MODE_VALID
+000000D2  B63C 0000                 98                          CMP.B       #%000,D3
+000000D6  6700 001E                 99                          BEQ         ADDA_MODE_VALID
+000000DA  B63C 0003                100                          CMP.B       #%011,D3
+000000DE  6700 0016                101                          BEQ         ADDA_MODE_VALID
+000000E2  B63C 0004                102                          CMP.B       #%100,D3
+000000E6  6700 000E                103                          BEQ         ADDA_MODE_VALID
+000000EA  B63C 0007                104                          CMP.B       #%111,D3
+000000EE  6700 0006                105                          BEQ         ADDA_MODE_VALID
+000000F2  6000 02A0                106                          BRA         ADDA_DECODE_ERR
+000000F6                           107  
+000000F6                           108  
+000000F6                           109  
+000000F6                           110  ADDA_MODE_VALID                                             *THE MODE IS CHECKED AND VALID AT THIS POINT
+000000F6                           111                                                              *LETS CHECK FOR REGISTRATIO MODE
+000000F6  B63C 0001                112                          CMP.B       #%001,D3
+000000FA  6700 001A                113                          BEQ         VALIDATE_ADDA_AR
+000000FE  B63C 0002                114                          CMP.B       #%010,D3
+00000102  6700 0012                115                          BEQ         VALIDATE_ADDA_AR
+00000106  B63C 0003                116                          CMP.B       #%011,D3
+0000010A  6700 000A                117                          BEQ         VALIDATE_ADDA_AR
+0000010E  B63C 0004                118                          CMP.B       #%100,D3
+00000112  6700 0002                119                          BEQ         VALIDATE_ADDA_AR
+00000116                           120  
+00000116                           121  VALIDATE_ADDA_AR                                            *An,it can be be 7
+00000116  B83C 006F                122                          CMP.B       #111,D4
+0000011A  6700 0278                123                          BEQ         ADDA_DECODE_ERR
+0000011E  4EB9 00000128            124                          JSR         ADDA_IMM_SOURCE
+00000124  6000 006A                125                          BRA         ADDA_VERIFIED
+00000128                           126  
+00000128                           127  
+00000128  B63C 0007                128  ADDA_IMM_SOURCE         CMP.B       #%111,D3
+0000012C  6600 0050                129                          BNE         ADDA_SOURCE
+00000130  B83C 0000                130                          CMP.B       #%000,D4
+00000134  6700 0016                131                          BEQ         ADDA_GET_VALUE
+00000138  B83C 0001                132                          CMP.B       #%001,D4
+0000013C  6700 000E                133                          BEQ         ADDA_GET_VALUE
+00000140  B83C 0004                134                          CMP.B       #%100,D4
+00000144  6700 0006                135                          BEQ         ADDA_GET_VALUE
+00000148  6000 024A                136                          BRA         ADDA_DECODE_ERR
+0000014C                           137  
+0000014C                           138  ADDA_GET_VALUE                                              *Now we need to figure out how much data to snag after, should we get a word or a long?
+0000014C  B83C 0004                139                          CMP.B       #%100,D4
+00000150  6700 0012                140                          BEQ         ADDA_POUND
+00000154  B83C 0000                141                          CMP.B       #%000,D4
+00000158  6700 0016                142                          BEQ         ADDA_GETWORD
+0000015C  B83C 0001                143                          CMP.B       #%001,D4
+00000160  6700 0014                144                          BEQ         ADDA_GETLONG
+00000164                           145  
+00000164                           146  ADDA_POUND
+00000164  B03C 0002                147                          CMP.B       #%10,D0                 *The number need to be added is a literal
+00000168  6700 000C                148                          BEQ         ADDA_GETLONG
+0000016C  6000 0002                149                          BRA         ADDA_GETWORD
+00000170                           150  
+00000170                           151  
+00000170                           152  ADDA_GETWORD
+00000170  3A19                     153                          MOVE.W      (A1)+,D5                *D5 store the word data
+00000172  6000 000A                154                          BRA         ADDA_SOURCE
+00000176                           155  
+00000176                           156  
+00000176                           157  ADDA_GETLONG
+00000176  2A19                     158                          MOVE.L      (A1)+,D5                *D5 store the long data
+00000178  6000 0004                159                          BRA         ADDA_SOURCE
+0000017C                           160  
+0000017C                           161  
+0000017C  4E75                     162  VERIFIED_ADDA           RTS
+0000017E                           163  
+0000017E                           164  ADDA_SOURCE
+0000017E  B43C 0007                165                          CMP.B       #%111,D2
+00000182  66F8                     166                          BNE         VERIFIED_ADDA
+00000184  B23C 0002                167                          CMP.B       #%10,D1
+Line 168 ERROR: Undefined symbol
+00000188  6700 BA04                168                          BEQ         ADDED_GETLONG
+Line 169 ERROR: Undefined symbol
+0000018C  6000 BA00                169                          BRA         ADDED_GETWORD
+00000190                           170  
+00000190  6000 0002                171  ADDA_VERIFIED           BRA         ADDA_PRINT
+00000194                           172  
+Line 173 ERROR: Undefined symbol
+00000194  41F9 004DBB8E            173  ADDA_PRINT              LEA         ADDASTRING,A0
+Line 174 ERROR: Undefined symbol
+0000019A  4EB9 004DBB8E            174                          JSR         PRINT_SR
+000001A0  6000 0002                175                          BRA         PRINT_ADDA_SIZE
+000001A4                           176  
+000001A4  B03C 0000                177  PRINT_ADDA_SIZE         CMP.B       #%0,D0                  *Print size
+000001A8  6700 000E                178                          BEQ         SIZEA_W
+000001AC  B03C 0001                179                          CMP.B       #%1,D0
+000001B0  6700 0016                180                          BEQ         SIZEA_L
+000001B4  6000 01DE                181                          BRA         ADDA_DECODE_ERR
+000001B8                           182  
+000001B8                           183  
+Line 184 ERROR: Undefined symbol
+000001B8  41F9 004DBB8E            184  SIZEA_W                 LEA         WORDSTRING,A0           *size is word
+Line 185 ERROR: Undefined symbol
+000001BE  4EB9 004DBB8E            185                          JSR         PRINT_SR
+000001C4  6000 0012                186                          BRA         ADDA_P
+Line 187 ERROR: Undefined symbol
+000001C8  41F9 004DBB8E            187  SIZEA_L                 LEA         LONGSTRING,A0           *size is long
+Line 188 ERROR: Undefined symbol
+000001CE  4EB9 004DBB8E            188                          JSR         PRINT_SR
+000001D4  6000 0002                189                          BRA         ADDA_P
+000001D8                           190  
+000001D8                           191  
+Line 192 ERROR: Undefined symbol
+000001D8  4EB9 004DBB8E            192  ADDA_P                  JSR         SHIFTCURSOR                                *Done displaying size, now display source
+000001DE  B63C 0000                193                          CMP.B       #%000,D3
+000001E2  6700 002E                194                          BEQ         ADDA_000
+000001E6  B63C 0001                195                          CMP.B       #%001,D3
+000001EA  6700 003E                196                          BEQ         ADDA_001
+000001EE  B63C 0002                197                          CMP.B       #%010,D3
+000001F2  6700 004E                198                          BEQ         ADDA_010
+000001F6  B63C 0003                199                          CMP.B       #%011,D3
+000001FA  6700 0076                200                          BEQ         ADDA_011
+000001FE  B63C 0007                201                          CMP.B       #%111,D3
+00000202  6700 00AA                202                          BEQ         ADDA_111
+00000206  B63C 0004                203                          CMP.B       #%100,D3
+0000020A  6700 0128                204                          BEQ         ADDA_100
+0000020E                           205  
+0000020E  6000 0160                206                          BRA         ADDA_DEST_PRT
+00000212                           207  
+00000212                           208  ADDA_000                                                    *Source is data register
+Line 209 ERROR: Undefined symbol
+00000212  41F9 004DBB8E            209                          LEA         DSTRING,A0
+Line 210 ERROR: Undefined symbol
+00000218  4EB9 004DBB8E            210                          JSR         PRINT_SR
+0000021E  2E04                     211                          MOVE.L      D4,D7
+Line 212 ERROR: Undefined symbol
+00000220  4EB9 004DBB8E            212                          JSR         PRINT_HEX
+00000226  6000 0148                213                          BRA         ADDA_DEST_PRT
+0000022A                           214  ADDA_001                                                    *Source is address register
+Line 215 ERROR: Undefined symbol
+0000022A  41F9 004DBB8E            215                          LEA         ASTRING,A0
+Line 216 ERROR: Undefined symbol
+00000230  4EB9 004DBB8E            216                          JSR         PRINT_SR
+00000236  2E04                     217                          MOVE.L      D4,D7
+Line 218 ERROR: Undefined symbol
+00000238  4EB9 004DBB8E            218                          JSR         PRINT_HEX
+0000023E  6000 0130                219                          BRA         ADDA_DEST_PRT
+00000242                           220  ADDA_010                                                    *Address register indirect
+Line 221 ERROR: Undefined symbol
+00000242  41F9 004DBB8E            221                          LEA         LPARENSTRING,A0
+Line 222 ERROR: Undefined symbol
+00000248  4EB9 004DBB8E            222                          JSR         PRINT_SR
+Line 223 ERROR: Undefined symbol
+0000024E  41F9 004DBB8E            223                          LEA         ASTRING,A0
+Line 224 ERROR: Undefined symbol
+00000254  4EB9 004DBB8E            224                          JSR         PRINT_SR
+0000025A  2E04                     225                          MOVE.L      D4,D7
+Line 226 ERROR: Undefined symbol
+0000025C  4EB9 004DBB8E            226                          JSR         PRINT_HEX
+Line 227 ERROR: Undefined symbol
+00000262  41F9 004DBB8E            227                          LEA         RPARENSTRING,A0
+Line 228 ERROR: Undefined symbol
+00000268  4EB9 004DBB8E            228                          JSR         PRINT_SR
+0000026E  6000 0100                229                          BRA         ADDA_DEST_PRT
+00000272                           230  ADDA_011                                                    *Address register indirect postincrement
+Line 231 ERROR: Undefined symbol
+00000272  41F9 004DBB8E            231                          LEA         LPARENSTRING,A0
+Line 232 ERROR: Undefined symbol
+00000278  4EB9 004DBB8E            232                          JSR         PRINT_SR
+Line 233 ERROR: Undefined symbol
+0000027E  41F9 004DBB8E            233                          LEA         ASTRING,A0
+Line 234 ERROR: Undefined symbol
+00000284  4EB9 004DBB8E            234                          JSR         PRINT_SR
+0000028A  2E04                     235                          MOVE.L      D4,D7
+Line 236 ERROR: Undefined symbol
+0000028C  4EB9 004DBB8E            236                          JSR         PRINT_HEX
+Line 237 ERROR: Undefined symbol
+00000292  41F9 004DBB8E            237                          LEA         RPARENSTRING,A0
+Line 238 ERROR: Undefined symbol
+00000298  4EB9 004DBB8E            238                          JSR         PRINT_SR
+Line 239 ERROR: Undefined symbol
+0000029E  41F9 004DBB8E            239                          LEA         PLUSSTRING,A0
+Line 240 ERROR: Undefined symbol
+000002A4  4EB9 004DBB8E            240                          JSR         PRINT_SR
+000002AA  6000 00C4                241                          BRA         ADDA_DEST_PRT
+000002AE                           242  ADDA_111                                                    *Immediate source, could be immediate data or word/long address
+000002AE  B83C 0000                243                          CMP.B       #%000,D4
+000002B2  6700 0012                244                          BEQ         ADDA_111000
+000002B6  B83C 0001                245                          CMP.B       #%001,D4
+000002BA  6700 001E                246                          BEQ         ADDA_111001
+000002BE  B83C 0004                247                          CMP.B       #%100,D4
+000002C2  6700 0030                248                          BEQ         ADDA_111100
+000002C6                           249  ADDA_111000                                                 *Is word address
+Line 250 ERROR: Undefined symbol
+000002C6  41F9 004DBB8E            250                          LEA         DOLLARSTRING,A0
+000002CC  4287                     251                          CLR.L       D7
+000002CE  3E05                     252                          MOVE.W      D5,D7
+Line 253 ERROR: Undefined symbol
+000002D0  4EB9 004DBB8E            253                          JSR         PRINT_HEX
+000002D6  6000 0098                254                          BRA         ADDA_DEST_PRT
+000002DA                           255  ADDA_111001                                                 *Is long address
+Line 256 ERROR: Undefined symbol
+000002DA  41F9 004DBB8E            256                          LEA         DOLLARSTRING,A0
+Line 257 ERROR: Undefined symbol
+000002E0  4EB9 004DBB8E            257                          JSR         PRINT_SR
+000002E6  4287                     258                          CLR.L       D7
+000002E8  2E05                     259                          MOVE.L      D5,D7
+Line 260 ERROR: Undefined symbol
+000002EA  4EB9 004DBB8E            260                          JSR         PRINT_HEX
+000002F0  6000 007E                261                          BRA         ADDA_DEST_PRT
+000002F4                           262  ADDA_111100                                                 *Is immediate data
+Line 263 ERROR: Undefined symbol
+000002F4  41F9 004DBB8E            263                          LEA         POUNDSTRING,A0
+Line 264 ERROR: Undefined symbol
+000002FA  4EB9 004DBB8E            264                          JSR         PRINT_SR
+Line 265 ERROR: Undefined symbol
+00000300  41F9 004DBB8E            265                          LEA         DOLLARSTRING,A0
+Line 266 ERROR: Undefined symbol
+00000306  4EB9 004DBB8E            266                          JSR         PRINT_SR
+0000030C  4287                     267                          CLR.L       D7
+0000030E  B03C 0000                268                          CMP.B       #%0,D0
+00000312  6700 000A                269                          BEQ         ADDA_111100W
+00000316  B03C 0001                270                          CMP.B       #%1,D0
+0000031A  6700 0008                271                          BEQ         ADDA_111100L
+0000031E  3E05                     272  ADDA_111100W            MOVE.W      D5,D7
+00000320  6000 0008                273                          BRA         ADDA_111100CONT
+00000324  2E05                     274  ADDA_111100L            MOVE.L      D5,D7
+00000326  6000 0002                275                          BRA         ADDA_111100CONT
+0000032A                           276  ADDA_111100CONT
+Line 277 ERROR: Undefined symbol
+0000032A  4EB9 004DBB8E            277                          JSR         PRINT_HEX
+00000330  6000 003E                278                          BRA         ADDA_DEST_PRT
+00000334                           279  ADDA_100                                                    *Source is address with predecrement
+Line 280 ERROR: Undefined symbol
+00000334  41F9 004DBB8E            280                          LEA         MINUSSTRING,A0
+Line 281 ERROR: Undefined symbol
+0000033A  4EB9 004DBB8E            281                          JSR         PRINT_SR
+Line 282 ERROR: Undefined symbol
+00000340  41F9 004DBB8E            282                          LEA         LPARENSTRING,A0
+Line 283 ERROR: Undefined symbol
+00000346  4EB9 004DBB8E            283                          JSR         PRINT_SR
+Line 284 ERROR: Undefined symbol
+0000034C  41F9 004DBB8E            284                          LEA         ASTRING,A0
+Line 285 ERROR: Undefined symbol
+00000352  4EB9 004DBB8E            285                          JSR         PRINT_SR
+00000358  2E04                     286                          MOVE.L      D4,D7
+Line 287 ERROR: Undefined symbol
+0000035A  4EB9 004DBB8E            287                          JSR         PRINT_HEX
+Line 288 ERROR: Undefined symbol
+00000360  41F9 004DBB8E            288                          LEA         RPARENSTRING,A0
+Line 289 ERROR: Undefined symbol
+00000366  4EB9 004DBB8E            289                          JSR         PRINT_SR
+0000036C  6000 0002                290                          BRA         ADDA_DEST_PRT
+00000370                           291  
+00000370                           292  ADDA_DEST_PRT                                               *Now print the destination
+00000370                           293  
+Line 294 ERROR: Undefined symbol
+00000370  41F9 004DBB8E            294                          LEA         COMMASTRING,A0
+Line 295 ERROR: Undefined symbol
+00000376  4EB9 004DBB8E            295                          JSR         PRINT_SR                *Destination is just address register
+Line 296 ERROR: Undefined symbol
+0000037C  41F9 004DBB8E            296                          LEA         ASTRING,A0
+Line 297 ERROR: Undefined symbol
+00000382  4EB9 004DBB8E            297                          JSR         PRINT_SR
+00000388  2E02                     298                          MOVE.L      D2,D7
+Line 299 ERROR: Undefined symbol
+0000038A  4EB9 004DBB8E            299                          JSR         PRINT_HEX
+00000390  6000 000C                300                          BRA         ADDA_DECODE_DONE
+00000394                           301  
+00000394                           302  
+Line 303 ERROR: Undefined symbol
+00000394  4EB9 004DBB8E            303  ADDA_DECODE_ERR         JSR         PRINTLINE_SR
+0000039A  6000 0002                304                          BRA         ADDA_DECODE_DONE
+0000039E                           305  
+0000039E                           306  
+Line 307 ERROR: Undefined symbol
+0000039E  41F9 004DBB8E            307  ADDA_DECODE_DONE        LEA         LINEEND,A0
+Line 308 ERROR: Undefined symbol
+000003A4  4EB9 004DBB8E            308                          JSR         PRINT_SR
+000003AA  4E75                     309                          RTS
+Line 310 WARNING: END directive missing, starting address not set
+
+59 errors detected
+1 warning generated
+
+
+SYMBOL TABLE INFORMATION
+Symbol-name         Value
+-------------------------
+ADDA_000            212
+ADDA_001            22A
+ADDA_010            242
+ADDA_011            272
+ADDA_100            334
+ADDA_111            2AE
+ADDA_111000         2C6
+ADDA_111001         2DA
+ADDA_111100         2F4
+ADDA_111100CONT     32A
+ADDA_111100L        324
+ADDA_111100W        31E
+ADDA_ADDREG_VALID   A6
+ADDA_DECODE_DONE    39E
+ADDA_DECODE_ERR     394
+ADDA_DEST_PRT       370
+ADDA_GETLONG        176
+ADDA_GETWORD        170
+ADDA_GET_VALUE      14C
+ADDA_IMM_SOURCE     128
+ADDA_MODE_VALID     F6
+ADDA_P              1D8
+ADDA_POUND          164
+ADDA_PRINT          194
+ADDA_SIZE_VALID     BA
+ADDA_SOURCE         17E
+ADDA_SR_VALID       62
+ADDA_VALIDITY       36
+ADDA_VERIFIED       190
+PRINT_ADDA_SIZE     1A4
+SIZEA_L             1C8
+SIZEA_W             1B8
+VALIDATE_ADDA_AR    116
+VERIFIED_ADDA       17C

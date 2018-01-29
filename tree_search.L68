@@ -1,0 +1,615 @@
+00000000 Starting Address
+Assembler used: EASy68K Editor/Assembler v5.15.04
+Created On: 11/18/2017 10:41:04 AM
+
+00000000  5301                       1  b                       SUB.B       #1,D1                   * subtract from length
+Line 2 ERROR: Undefined symbol
+00000002  6700 BB8A                  2                          BEQ         PRINTLINE_SR            * if length is 0, fail
+00000006  E388                       3                          LSL.L       #1,D0                   * leftshift the opcode bits
+00000008  6400 0186                  4                          BCC         b0                      * branch to zero-child node
+0000000C  6500 016E                  5                          BCS         b1                      * branch to ones-child node
+Line 6 ERROR: Undefined symbol
+00000010  6000 BB7C                  6                          BRA         TREEDONE                * this should never be hit
+00000014                             7  
+00000014                             8  
+00000014  5301                       9  b010010001              SUB.B       #1,D1                   * subtract from length
+Line 10 ERROR: Undefined symbol
+00000016  6700 BB76                 10                          BEQ         PRINTLINE_SR            * if length is 0, fail
+0000001A  E388                      11                          LSL.L       #1,D0                   * leftshift the opcode bits
+Line 12 ERROR: Undefined symbol
+0000001C  6400 BB70                 12                          BCC         MOVEMW_SR               * branch to zero-child node
+Line 13 ERROR: Undefined symbol
+00000020  6500 BB6C                 13                          BCS         MOVEML_SR               * branch to ones-child node
+Line 14 ERROR: Undefined symbol
+00000024  6000 BB68                 14                          BRA         TREEDONE                * this should never be hit
+00000028                            15  
+00000028                            16  
+00000028  5301                      17  b000001100              SUB.B       #1,D1                   * subtract from length
+Line 18 ERROR: Undefined symbol
+0000002A  6700 BB62                 18                          BEQ         PRINTLINE_SR            * if length is 0, fail
+0000002E  E388                      19                          LSL.L       #1,D0                   * leftshift the opcode bits
+Line 20 ERROR: Undefined symbol
+00000030  6400 BB5C                 20                          BCC         ADDIB_SR                * branch to zero-child node
+Line 21 ERROR: Undefined symbol
+00000034  6500 BB58                 21                          BCS         ADDIL_SR                * branch to ones-child node
+Line 22 ERROR: Undefined symbol
+00000038  6000 BB54                 22                          BRA         TREEDONE                * this should never be hit
+0000003C                            23  
+0000003C                            24  
+0000003C  5301                      25  b010011000              SUB.B       #1,D1                   * subtract from length
+Line 26 ERROR: Undefined symbol
+0000003E  6700 BB4E                 26                          BEQ         PRINTLINE_SR            * if length is 0, fail
+00000042  E388                      27                          LSL.L       #1,D0                   * leftshift the opcode bits
+00000044  6400 0320                 28                          BCC         b0100110000             * branch to zero-child node
+00000048  6500 0308                 29                          BCS         b0100110001             * branch to ones-child node
+Line 30 ERROR: Undefined symbol
+0000004C  6000 BB40                 30                          BRA         TREEDONE                * this should never be hit
+00000050                            31  
+00000050                            32  
+00000050  5301                      33  b010                    SUB.B       #1,D1                   * subtract from length
+Line 34 ERROR: Undefined symbol
+00000052  6700 BB3A                 34                          BEQ         PRINTLINE_SR            * if length is 0, fail
+00000056  E388                      35                          LSL.L       #1,D0                   * leftshift the opcode bits
+00000058  6400 01AC                 36                          BCC         b0100                   * branch to zero-child node
+Line 37 ERROR: Undefined symbol
+0000005C  6500 BB30                 37                          BCS         ADDQ_SR                 * branch to ones-child node
+Line 38 ERROR: Undefined symbol
+00000060  6000 BB2C                 38                          BRA         TREEDONE                * this should never be hit
+00000064                            39  
+00000064                            40  
+00000064  5301                      41  b111                    SUB.B       #1,D1                   * subtract from length
+Line 42 ERROR: Undefined symbol
+00000066  6700 BB26                 42                          BEQ         PRINTLINE_SR            * if length is 0, fail
+0000006A  E388                      43                          LSL.L       #1,D0                   * leftshift the opcode bits
+Line 44 ERROR: Undefined symbol
+0000006C  6400 BB20                 44                          BCC         SHIFTSTUFF_SR           * branch to zero-child node
+Line 45 ERROR: Undefined symbol
+00000070  6500 BB1C                 45                          BCS         PRINTLINE_SR            * branch to ones-child node
+Line 46 ERROR: Undefined symbol
+00000074  6000 BB18                 46                          BRA         TREEDONE                * this should never be hit
+00000078                            47  
+00000078                            48  
+00000078  5301                      49  b110                    SUB.B       #1,D1                   * subtract from length
+Line 50 ERROR: Undefined symbol
+0000007A  6700 BB12                 50                          BEQ         PRINTLINE_SR            * if length is 0, fail
+0000007E  E388                      51                          LSL.L       #1,D0                   * leftshift the opcode bits
+Line 52 ERROR: Undefined symbol
+00000080  6400 BB0C                 52                          BCC         PRINTLINE_SR            * branch to zero-child node
+Line 53 ERROR: Undefined symbol
+00000084  6500 BB08                 53                          BCS         ADDDECODE_SR            * branch to ones-child node
+Line 54 ERROR: Undefined symbol
+00000088  6000 BB04                 54                          BRA         TREEDONE                * this should never be hit
+0000008C                            55  
+0000008C                            56  
+0000008C  5301                      57  b010011100111000        SUB.B       #1,D1                   * subtract from length
+Line 58 ERROR: Undefined symbol
+0000008E  6700 BAFE                 58                          BEQ         PRINTLINE_SR            * if length is 0, fail
+00000092  E388                      59                          LSL.L       #1,D0                   * leftshift the opcode bits
+Line 60 ERROR: Undefined symbol
+00000094  6400 BAF8                 60                          BCC         PRINTLINE_SR            * branch to zero-child node
+Line 61 ERROR: Undefined symbol
+00000098  6500 BAF4                 61                          BCS         NOP_SR                  * branch to ones-child node
+Line 62 ERROR: Undefined symbol
+0000009C  6000 BAF0                 62                          BRA         TREEDONE                * this should never be hit
+000000A0                            63  
+000000A0                            64  
+000000A0  5301                      65  b01000100               SUB.B       #1,D1                   * subtract from length
+Line 66 ERROR: Undefined symbol
+000000A2  6700 BAEA                 66                          BEQ         PRINTLINE_SR            * if length is 0, fail
+000000A6  E388                      67                          LSL.L       #1,D0                   * leftshift the opcode bits
+Line 68 ERROR: Undefined symbol
+000000A8  6400 BAE4                 68                          BCC         CLRB_SR                 * branch to zero-child node
+Line 69 ERROR: Undefined symbol
+000000AC  6500 BAE0                 69                          BCS         CLRW_SR                 * branch to ones-child node
+Line 70 ERROR: Undefined symbol
+000000B0  6000 BADC                 70                          BRA         TREEDONE                * this should never be hit
+000000B4                            71  
+000000B4                            72  
+000000B4  5301                      73  b01000101               SUB.B       #1,D1                   * subtract from length
+Line 74 ERROR: Undefined symbol
+000000B6  6700 BAD6                 74                          BEQ         PRINTLINE_SR            * if length is 0, fail
+000000BA  E388                      75                          LSL.L       #1,D0                   * leftshift the opcode bits
+Line 76 ERROR: Undefined symbol
+000000BC  6400 BAD0                 76                          BCC         CLRL_SR                 * branch to zero-child node
+Line 77 ERROR: Undefined symbol
+000000C0  6500 BACC                 77                          BCS         PRINTLINE_SR            * branch to ones-child node
+Line 78 ERROR: Undefined symbol
+000000C4  6000 BAC8                 78                          BRA         TREEDONE                * this should never be hit
+000000C8                            79  
+000000C8                            80  
+000000C8  5301                      81  b0100110                SUB.B       #1,D1                   * subtract from length
+Line 82 ERROR: Undefined symbol
+000000CA  6700 BAC2                 82                          BEQ         PRINTLINE_SR            * if length is 0, fail
+000000CE  E388                      83                          LSL.L       #1,D0                   * leftshift the opcode bits
+000000D0  6400 026C                 84                          BCC         b01001100               * branch to zero-child node
+Line 85 ERROR: Undefined symbol
+000000D4  6500 BAB8                 85                          BCS         PRINTLINE_SR            * branch to ones-child node
+Line 86 ERROR: Undefined symbol
+000000D8  6000 BAB4                 86                          BRA         TREEDONE                * this should never be hit
+000000DC                            87  
+000000DC                            88  
+000000DC  5301                      89  b0100111                SUB.B       #1,D1                   * subtract from length
+Line 90 ERROR: Undefined symbol
+000000DE  6700 BAAE                 90                          BEQ         PRINTLINE_SR            * if length is 0, fail
+000000E2  E388                      91                          LSL.L       #1,D0                   * leftshift the opcode bits
+000000E4  6400 0230                 92                          BCC         b01001110               * branch to zero-child node
+Line 93 ERROR: Undefined symbol
+000000E8  6500 BAA4                 93                          BCS         PRINTLINE_SR            * branch to ones-child node
+Line 94 ERROR: Undefined symbol
+000000EC  6000 BAA0                 94                          BRA         TREEDONE                * this should never be hit
+000000F0                            95  
+000000F0                            96  
+000000F0  5301                      97  b00                     SUB.B       #1,D1                   * subtract from length
+Line 98 ERROR: Undefined symbol
+000000F2  6700 BA9A                 98                          BEQ         PRINTLINE_SR            * if length is 0, fail
+000000F6  E388                      99                          LSL.L       #1,D0                   * leftshift the opcode bits
+000000F8  6400 0148                100                          BCC         b000                    * branch to zero-child node
+000000FC  6500 0130                101                          BCS         b001                    * branch to ones-child node
+Line 102 ERROR: Undefined symbol
+00000100  6000 BA8C                102                          BRA         TREEDONE                * this should never be hit
+00000104                           103  
+00000104                           104  
+00000104  5301                     105  b01                     SUB.B       #1,D1                   * subtract from length
+Line 106 ERROR: Undefined symbol
+00000106  6700 BA86                106                          BEQ         PRINTLINE_SR            * if length is 0, fail
+0000010A  E388                     107                          LSL.L       #1,D0                   * leftshift the opcode bits
+0000010C  6400 FF42                108                          BCC         b010                    * branch to zero-child node
+Line 109 ERROR: Undefined symbol
+00000110  6500 BA7C                109                          BCS         PRINTLINE_SR            * branch to ones-child node
+Line 110 ERROR: Undefined symbol
+00000114  6000 BA78                110                          BRA         TREEDONE                * this should never be hit
+00000118                           111  
+00000118                           112  
+00000118  5301                     113  b010011100111           SUB.B       #1,D1                   * subtract from length
+Line 114 ERROR: Undefined symbol
+0000011A  6700 BA72                114                          BEQ         PRINTLINE_SR            * if length is 0, fail
+0000011E  E388                     115                          LSL.L       #1,D0                   * leftshift the opcode bits
+00000120  6400 0280                116                          BCC         b0100111001110          * branch to zero-child node
+Line 117 ERROR: Undefined symbol
+00000124  6500 BA68                117                          BCS         PRINTLINE_SR            * branch to ones-child node
+Line 118 ERROR: Undefined symbol
+00000128  6000 BA64                118                          BRA         TREEDONE                * this should never be hit
+0000012C                           119  
+0000012C                           120  
+0000012C  5301                     121  b01001110011101         SUB.B       #1,D1                   * subtract from length
+Line 122 ERROR: Undefined symbol
+0000012E  6700 BA5E                122                          BEQ         PRINTLINE_SR            * if length is 0, fail
+00000132  E388                     123                          LSL.L       #1,D0                   * leftshift the opcode bits
+00000134  6400 0132                124                          BCC         b010011100111010        * branch to zero-child node
+Line 125 ERROR: Undefined symbol
+00000138  6500 BA54                125                          BCS         PRINTLINE_SR            * branch to ones-child node
+Line 126 ERROR: Undefined symbol
+0000013C  6000 BA50                126                          BRA         TREEDONE                * this should never be hit
+00000140                           127  
+00000140                           128  
+00000140  5301                     129  b01001110011100         SUB.B       #1,D1                   * subtract from length
+Line 130 ERROR: Undefined symbol
+00000142  6700 BA4A                130                          BEQ         PRINTLINE_SR            * if length is 0, fail
+00000146  E388                     131                          LSL.L       #1,D0                   * leftshift the opcode bits
+00000148  6400 FF42                132                          BCC         b010011100111000        * branch to zero-child node
+Line 133 ERROR: Undefined symbol
+0000014C  6500 BA40                133                          BCS         PRINTLINE_SR            * branch to ones-child node
+Line 134 ERROR: Undefined symbol
+00000150  6000 BA3C                134                          BRA         TREEDONE                * this should never be hit
+00000154                           135  
+00000154                           136  
+00000154  5301                     137  b01000                  SUB.B       #1,D1                   * subtract from length
+Line 138 ERROR: Undefined symbol
+00000156  6700 BA36                138                          BEQ         PRINTLINE_SR            * if length is 0, fail
+0000015A  E388                     139                          LSL.L       #1,D0                   * leftshift the opcode bits
+Line 140 ERROR: Undefined symbol
+0000015C  6400 BA30                140                          BCC         PRINTLINE_SR            * branch to zero-child node
+00000160  6500 0218                141                          BCS         b010001                 * branch to ones-child node
+Line 142 ERROR: Undefined symbol
+00000164  6000 BA28                142                          BRA         TREEDONE                * this should never be hit
+00000168                           143  
+00000168                           144  
+00000168  5301                     145  b01001                  SUB.B       #1,D1                   * subtract from length
+Line 146 ERROR: Undefined symbol
+0000016A  6700 BA22                146                          BEQ         PRINTLINE_SR            * if length is 0, fail
+0000016E  E388                     147                          LSL.L       #1,D0                   * leftshift the opcode bits
+00000170  6400 006C                148                          BCC         b010010                 * branch to zero-child node
+00000174  6500 007C                149                          BCS         b010011                 * branch to ones-child node
+Line 150 ERROR: Undefined symbol
+00000178  6000 BA14                150                          BRA         TREEDONE                * this should never be hit
+0000017C                           151  
+0000017C                           152  
+0000017C  5301                     153  b1                      SUB.B       #1,D1                   * subtract from length
+Line 154 ERROR: Undefined symbol
+0000017E  6700 BA0E                154                          BEQ         PRINTLINE_SR            * if length is 0, fail
+00000182  E388                     155                          LSL.L       #1,D0                   * leftshift the opcode bits
+00000184  6400 0146                156                          BCC         b10                     * branch to zero-child node
+00000188  6500 012E                157                          BCS         b11                     * branch to ones-child node
+Line 158 ERROR: Undefined symbol
+0000018C  6000 BA00                158                          BRA         TREEDONE                * this should never be hit
+00000190                           159  
+00000190                           160  
+00000190  5301                     161  b0                      SUB.B       #1,D1                   * subtract from length
+Line 162 ERROR: Undefined symbol
+00000192  6700 B9FA                162                          BEQ         PRINTLINE_SR            * if length is 0, fail
+00000196  E388                     163                          LSL.L       #1,D0                   * leftshift the opcode bits
+00000198  6400 FF56                164                          BCC         b00                     * branch to zero-child node
+0000019C  6500 FF66                165                          BCS         b01                     * branch to ones-child node
+Line 166 ERROR: Undefined symbol
+000001A0  6000 B9EC                166                          BRA         TREEDONE                * this should never be hit
+000001A4                           167  
+000001A4                           168  
+000001A4  5301                     169  b01001000               SUB.B       #1,D1                   * subtract from length
+Line 170 ERROR: Undefined symbol
+000001A6  6700 B9E6                170                          BEQ         PRINTLINE_SR            * if length is 0, fail
+000001AA  E388                     171                          LSL.L       #1,D0                   * leftshift the opcode bits
+Line 172 ERROR: Undefined symbol
+000001AC  6400 B9E0                172                          BCC         PRINTLINE_SR            * branch to zero-child node
+000001B0  6500 FE62                173                          BCS         b010010001              * branch to ones-child node
+Line 174 ERROR: Undefined symbol
+000001B4  6000 B9D8                174                          BRA         TREEDONE                * this should never be hit
+000001B8                           175  
+000001B8                           176  
+000001B8  5301                     177  b00000                  SUB.B       #1,D1                   * subtract from length
+Line 178 ERROR: Undefined symbol
+000001BA  6700 B9D2                178                          BEQ         PRINTLINE_SR            * if length is 0, fail
+000001BE  E388                     179                          LSL.L       #1,D0                   * leftshift the opcode bits
+Line 180 ERROR: Undefined symbol
+000001C0  6400 B9CC                180                          BCC         PRINTLINE_SR            * branch to zero-child node
+000001C4  6500 013E                181                          BCS         b000001                 * branch to ones-child node
+Line 182 ERROR: Undefined symbol
+000001C8  6000 B9C4                182                          BRA         TREEDONE                * this should never be hit
+000001CC                           183  
+000001CC                           184  
+000001CC  5301                     185  b0000                   SUB.B       #1,D1                   * subtract from length
+Line 186 ERROR: Undefined symbol
+000001CE  6700 B9BE                186                          BEQ         PRINTLINE_SR            * if length is 0, fail
+000001D2  E388                     187                          LSL.L       #1,D0                   * leftshift the opcode bits
+000001D4  64E2                     188                          BCC         b00000                  * branch to zero-child node
+Line 189 ERROR: Undefined symbol
+000001D6  6500 B9B6                189                          BCS         PRINTLINE_SR            * branch to ones-child node
+Line 190 ERROR: Undefined symbol
+000001DA  6000 B9B2                190                          BRA         TREEDONE                * this should never be hit
+000001DE                           191  
+000001DE                           192  
+000001DE  5301                     193  b010010                 SUB.B       #1,D1                   * subtract from length
+Line 194 ERROR: Undefined symbol
+000001E0  6700 B9AC                194                          BEQ         PRINTLINE_SR            * if length is 0, fail
+000001E4  E388                     195                          LSL.L       #1,D0                   * leftshift the opcode bits
+000001E6  6400 00BC                196                          BCC         b0100100                * branch to zero-child node
+Line 197 ERROR: Undefined symbol
+000001EA  6500 B9A2                197                          BCS         PRINTLINE_SR            * branch to ones-child node
+Line 198 ERROR: Undefined symbol
+000001EE  6000 B99E                198                          BRA         TREEDONE                * this should never be hit
+000001F2                           199  
+000001F2                           200  
+000001F2  5301                     201  b010011                 SUB.B       #1,D1                   * subtract from length
+Line 202 ERROR: Undefined symbol
+000001F4  6700 B998                202                          BEQ         PRINTLINE_SR            * if length is 0, fail
+000001F8  E388                     203                          LSL.L       #1,D0                   * leftshift the opcode bits
+000001FA  6400 FECC                204                          BCC         b0100110                * branch to zero-child node
+000001FE  6500 FEDC                205                          BCS         b0100111                * branch to ones-child node
+Line 206 ERROR: Undefined symbol
+00000202  6000 B98A                206                          BRA         TREEDONE                * this should never be hit
+00000206                           207  
+00000206                           208  
+00000206  5301                     209  b0100                   SUB.B       #1,D1                   * subtract from length
+Line 210 ERROR: Undefined symbol
+00000208  6700 B984                210                          BEQ         PRINTLINE_SR            * if length is 0, fail
+0000020C  E388                     211                          LSL.L       #1,D0                   * leftshift the opcode bits
+0000020E  6400 FF44                212                          BCC         b01000                  * branch to zero-child node
+00000212  6500 FF54                213                          BCS         b01001                  * branch to ones-child node
+Line 214 ERROR: Undefined symbol
+00000216  6000 B976                214                          BRA         TREEDONE                * this should never be hit
+0000021A                           215  
+0000021A                           216  
+0000021A  5301                     217  b00000110               SUB.B       #1,D1                   * subtract from length
+Line 218 ERROR: Undefined symbol
+0000021C  6700 B970                218                          BEQ         PRINTLINE_SR            * if length is 0, fail
+00000220  E388                     219                          LSL.L       #1,D0                   * leftshift the opcode bits
+00000222  6400 FE04                220                          BCC         b000001100              * branch to zero-child node
+00000226  6500 018E                221                          BCS         b000001101              * branch to ones-child node
+Line 222 ERROR: Undefined symbol
+0000022A  6000 B962                222                          BRA         TREEDONE                * this should never be hit
+0000022E                           223  
+0000022E                           224  
+0000022E  5301                     225  b001                    SUB.B       #1,D1                   * subtract from length
+Line 226 ERROR: Undefined symbol
+00000230  6700 B95C                226                          BEQ         PRINTLINE_SR            * if length is 0, fail
+00000234  E388                     227                          LSL.L       #1,D0                   * leftshift the opcode bits
+Line 228 ERROR: Undefined symbol
+00000236  6400 B956                228                          BCC         MOVEDECODE_SR           * branch to zero-child node
+Line 229 ERROR: Undefined symbol
+0000023A  6500 B952                229                          BCS         MOVEDECODE_SR           * branch to ones-child node
+Line 230 ERROR: Undefined symbol
+0000023E  6000 B94E                230                          BRA         TREEDONE                * this should never be hit
+00000242                           231  
+00000242                           232  
+00000242  5301                     233  b000                    SUB.B       #1,D1                   * subtract from length
+Line 234 ERROR: Undefined symbol
+00000244  6700 B948                234                          BEQ         PRINTLINE_SR            * if length is 0, fail
+00000248  E388                     235                          LSL.L       #1,D0                   * leftshift the opcode bits
+0000024A  6480                     236                          BCC         b0000                   * branch to zero-child node
+Line 237 ERROR: Undefined symbol
+0000024C  6500 B940                237                          BCS         MOVEDECODE_SR           * branch to ones-child node
+Line 238 ERROR: Undefined symbol
+00000250  6000 B93C                238                          BRA         TREEDONE                * this should never be hit
+00000254                           239  
+00000254                           240  
+00000254  5301                     241  b01001110011            SUB.B       #1,D1                   * subtract from length
+Line 242 ERROR: Undefined symbol
+00000256  6700 B936                242                          BEQ         PRINTLINE_SR            * if length is 0, fail
+0000025A  E388                     243                          LSL.L       #1,D0                   * leftshift the opcode bits
+Line 244 ERROR: Undefined symbol
+0000025C  6400 B930                244                          BCC         PRINTLINE_SR            * branch to zero-child node
+00000260  6500 FEB6                245                          BCS         b010011100111           * branch to ones-child node
+Line 246 ERROR: Undefined symbol
+00000264  6000 B928                246                          BRA         TREEDONE                * this should never be hit
+00000268                           247  
+00000268                           248  
+00000268  5301                     249  b010011100111010        SUB.B       #1,D1                   * subtract from length
+Line 250 ERROR: Undefined symbol
+0000026A  6700 B922                250                          BEQ         PRINTLINE_SR            * if length is 0, fail
+0000026E  E388                     251                          LSL.L       #1,D0                   * leftshift the opcode bits
+Line 252 ERROR: Undefined symbol
+00000270  6400 B91C                252                          BCC         PRINTLINE_SR            * branch to zero-child node
+Line 253 ERROR: Undefined symbol
+00000274  6500 B918                253                          BCS         RTS_SR                  * branch to ones-child node
+Line 254 ERROR: Undefined symbol
+00000278  6000 B914                254                          BRA         TREEDONE                * this should never be hit
+0000027C                           255  
+0000027C                           256  
+0000027C  5301                     257  b100                    SUB.B       #1,D1                   * subtract from length
+Line 258 ERROR: Undefined symbol
+0000027E  6700 B90E                258                          BEQ         PRINTLINE_SR            * if length is 0, fail
+00000282  E388                     259                          LSL.L       #1,D0                   * leftshift the opcode bits
+Line 260 ERROR: Undefined symbol
+00000284  6400 B908                260                          BCC         DIVUW_SR                * branch to zero-child node
+Line 261 ERROR: Undefined symbol
+00000288  6500 B904                261                          BCS         SUB_SR                  * branch to ones-child node
+Line 262 ERROR: Undefined symbol
+0000028C  6000 B900                262                          BRA         TREEDONE                * this should never be hit
+00000290                           263  
+00000290                           264  
+00000290  5301                     265  b101                    SUB.B       #1,D1                   * subtract from length
+Line 266 ERROR: Undefined symbol
+00000292  6700 B8FA                266                          BEQ         PRINTLINE_SR            * if length is 0, fail
+00000296  E388                     267                          LSL.L       #1,D0                   * leftshift the opcode bits
+Line 268 ERROR: Undefined symbol
+00000298  6400 B8F4                268                          BCC         PRINTLINE_SR            * branch to zero-child node
+Line 269 ERROR: Undefined symbol
+0000029C  6500 B8F0                269                          BCS         CMP_SR                  * branch to ones-child node
+Line 270 ERROR: Undefined symbol
+000002A0  6000 B8EC                270                          BRA         TREEDONE                * this should never be hit
+000002A4                           271  
+000002A4                           272  
+000002A4  5301                     273  b0100100                SUB.B       #1,D1                   * subtract from length
+Line 274 ERROR: Undefined symbol
+000002A6  6700 B8E6                274                          BEQ         PRINTLINE_SR            * if length is 0, fail
+000002AA  E388                     275                          LSL.L       #1,D0                   * leftshift the opcode bits
+000002AC  6400 FEF6                276                          BCC         b01001000               * branch to zero-child node
+Line 277 ERROR: Undefined symbol
+000002B0  6500 B8DC                277                          BCS         PRINTLINE_SR            * branch to ones-child node
+Line 278 ERROR: Undefined symbol
+000002B4  6000 B8D8                278                          BRA         TREEDONE                * this should never be hit
+000002B8                           279  
+000002B8                           280  
+000002B8  5301                     281  b11                     SUB.B       #1,D1                   * subtract from length
+Line 282 ERROR: Undefined symbol
+000002BA  6700 B8D2                282                          BEQ         PRINTLINE_SR            * if length is 0, fail
+000002BE  E388                     283                          LSL.L       #1,D0                   * leftshift the opcode bits
+000002C0  6400 FDB6                284                          BCC         b110                    * branch to zero-child node
+000002C4  6500 FD9E                285                          BCS         b111                    * branch to ones-child node
+Line 286 ERROR: Undefined symbol
+000002C8  6000 B8C4                286                          BRA         TREEDONE                * this should never be hit
+000002CC                           287  
+000002CC                           288  
+000002CC  5301                     289  b10                     SUB.B       #1,D1                   * subtract from length
+Line 290 ERROR: Undefined symbol
+000002CE  6700 B8BE                290                          BEQ         PRINTLINE_SR            * if length is 0, fail
+000002D2  E388                     291                          LSL.L       #1,D0                   * leftshift the opcode bits
+000002D4  64A6                     292                          BCC         b100                    * branch to zero-child node
+000002D6  65B8                     293                          BCS         b101                    * branch to ones-child node
+Line 294 ERROR: Undefined symbol
+000002D8  6000 B8B4                294                          BRA         TREEDONE                * this should never be hit
+000002DC                           295  
+000002DC                           296  
+000002DC  5301                     297  b0100010                SUB.B       #1,D1                   * subtract from length
+Line 298 ERROR: Undefined symbol
+000002DE  6700 B8AE                298                          BEQ         PRINTLINE_SR            * if length is 0, fail
+000002E2  E388                     299                          LSL.L       #1,D0                   * leftshift the opcode bits
+000002E4  6400 FDBA                300                          BCC         b01000100               * branch to zero-child node
+000002E8  6500 FDCA                301                          BCS         b01000101               * branch to ones-child node
+Line 302 ERROR: Undefined symbol
+000002EC  6000 B8A0                302                          BRA         TREEDONE                * this should never be hit
+000002F0                           303  
+000002F0                           304  
+000002F0  5301                     305  b0000011                SUB.B       #1,D1                   * subtract from length
+Line 306 ERROR: Undefined symbol
+000002F2  6700 B89A                306                          BEQ         PRINTLINE_SR            * if length is 0, fail
+000002F6  E388                     307                          LSL.L       #1,D0                   * leftshift the opcode bits
+Line 308 ERROR: Undefined symbol
+000002F8  6400 B894                308                          BCC         ADDIDECODE_SR              * branch to zero-child node
+Line 309 ERROR: Undefined symbol
+000002FC  6500 B890                309                          BCS         PRINTLINE_SR            * branch to ones-child node
+Line 310 ERROR: Undefined symbol
+00000300  6000 B88C                310                          BRA         TREEDONE                * this should never be hit
+00000304                           311  
+00000304                           312  
+00000304  5301                     313  b000001                 SUB.B       #1,D1                   * subtract from length
+Line 314 ERROR: Undefined symbol
+00000306  6700 B886                314                          BEQ         PRINTLINE_SR            * if length is 0, fail
+0000030A  E388                     315                          LSL.L       #1,D0                   * leftshift the opcode bits
+Line 316 ERROR: Undefined symbol
+0000030C  6400 B880                316                          BCC         PRINTLINE_SR            * branch to zero-child node
+00000310  65DE                     317                          BCS         b0000011                * branch to ones-child node
+Line 318 ERROR: Undefined symbol
+00000312  6000 B87A                318                          BRA         TREEDONE                * this should never be hit
+00000316                           319  
+00000316                           320  
+00000316  5301                     321  b01001110               SUB.B       #1,D1                   * subtract from length
+Line 322 ERROR: Undefined symbol
+00000318  6700 B874                322                          BEQ         PRINTLINE_SR            * if length is 0, fail
+0000031C  E388                     323                          LSL.L       #1,D0                   * leftshift the opcode bits
+0000031E  6400 00AA                324                          BCC         b010011100              * branch to zero-child node
+00000322  6500 006A                325                          BCS         b010011101              * branch to ones-child node
+Line 326 ERROR: Undefined symbol
+00000326  6000 B866                326                          BRA         TREEDONE                * this should never be hit
+0000032A                           327  
+0000032A                           328  
+0000032A  5301                     329  b0100111001             SUB.B       #1,D1                   * subtract from length
+Line 330 ERROR: Undefined symbol
+0000032C  6700 B860                330                          BEQ         PRINTLINE_SR            * if length is 0, fail
+00000330  E388                     331                          LSL.L       #1,D0                   * leftshift the opcode bits
+Line 332 ERROR: Undefined symbol
+00000332  6400 B85A                332                          BCC         PRINTLINE_SR            * branch to zero-child node
+00000336  6500 FF1C                333                          BCS         b01001110011            * branch to ones-child node
+Line 334 ERROR: Undefined symbol
+0000033A  6000 B852                334                          BRA         TREEDONE                * this should never be hit
+0000033E                           335  
+0000033E                           336  
+0000033E  5301                     337  b01001100               SUB.B       #1,D1                   * subtract from length
+Line 338 ERROR: Undefined symbol
+00000340  6700 B84C                338                          BEQ         PRINTLINE_SR            * if length is 0, fail
+00000344  E388                     339                          LSL.L       #1,D0                   * leftshift the opcode bits
+00000346  6400 FCF4                340                          BCC         b010011000              * branch to zero-child node
+Line 341 ERROR: Undefined symbol
+0000034A  6500 B842                341                          BCS         PRINTLINE_SR            * branch to ones-child node
+Line 342 ERROR: Undefined symbol
+0000034E  6000 B83E                342                          BRA         TREEDONE                * this should never be hit
+00000352                           343  
+00000352                           344  
+00000352  5301                     345  b0100110001             SUB.B       #1,D1                   * subtract from length
+Line 346 ERROR: Undefined symbol
+00000354  6700 B838                346                          BEQ         PRINTLINE_SR            * if length is 0, fail
+00000358  E388                     347                          LSL.L       #1,D0                   * leftshift the opcode bits
+Line 348 ERROR: Undefined symbol
+0000035A  6400 B832                348                          BCC         MOVEMW_SR               * branch to zero-child node
+Line 349 ERROR: Undefined symbol
+0000035E  6500 B82E                349                          BCS         MOVEML_SR               * branch to ones-child node
+Line 350 ERROR: Undefined symbol
+00000362  6000 B82A                350                          BRA         TREEDONE                * this should never be hit
+00000366                           351  
+00000366                           352  
+00000366  5301                     353  b0100110000             SUB.B       #1,D1                   * subtract from length
+Line 354 ERROR: Undefined symbol
+00000368  6700 B824                354                          BEQ         PRINTLINE_SR            * if length is 0, fail
+0000036C  E388                     355                          LSL.L       #1,D0                   * leftshift the opcode bits
+Line 356 ERROR: Undefined symbol
+0000036E  6400 B81E                356                          BCC         MULSL_SR                * branch to zero-child node
+Line 357 ERROR: Undefined symbol
+00000372  6500 B81A                357                          BCS         DIVUL_SR                * branch to ones-child node
+Line 358 ERROR: Undefined symbol
+00000376  6000 B816                358                          BRA         TREEDONE                * this should never be hit
+0000037A                           359  
+0000037A                           360  
+0000037A  5301                     361  b010001                 SUB.B       #1,D1                   * subtract from length
+Line 362 ERROR: Undefined symbol
+0000037C  6700 B810                362                          BEQ         PRINTLINE_SR            * if length is 0, fail
+00000380  E388                     363                          LSL.L       #1,D0                   * leftshift the opcode bits
+00000382  6400 FF58                364                          BCC         b0100010                * branch to zero-child node
+Line 365 ERROR: Undefined symbol
+00000386  6500 B806                365                          BCS         PRINTLINE_SR            * branch to ones-child node
+Line 366 ERROR: Undefined symbol
+0000038A  6000 B802                366                          BRA         TREEDONE                * this should never be hit
+0000038E                           367  
+0000038E                           368  
+0000038E  5301                     369  b010011101              SUB.B       #1,D1                   * subtract from length
+Line 370 ERROR: Undefined symbol
+00000390  6700 B7FC                370                          BEQ         PRINTLINE_SR            * if length is 0, fail
+00000394  E388                     371                          LSL.L       #1,D0                   * leftshift the opcode bits
+Line 372 ERROR: Undefined symbol
+00000396  6400 B7F6                372                          BCC         JSR_SR                  * branch to zero-child node
+Line 373 ERROR: Undefined symbol
+0000039A  6500 B7F2                373                          BCS         PRINTLINE_SR            * branch to ones-child node
+Line 374 ERROR: Undefined symbol
+0000039E  6000 B7EE                374                          BRA         TREEDONE                * this should never be hit
+000003A2                           375  
+000003A2                           376  
+000003A2  5301                     377  b0100111001110          SUB.B       #1,D1                   * subtract from length
+Line 378 ERROR: Undefined symbol
+000003A4  6700 B7E8                378                          BEQ         PRINTLINE_SR            * if length is 0, fail
+000003A8  E388                     379                          LSL.L       #1,D0                   * leftshift the opcode bits
+000003AA  6400 FD94                380                          BCC         b01001110011100         * branch to zero-child node
+000003AE  6500 FD7C                381                          BCS         b01001110011101         * branch to ones-child node
+Line 382 ERROR: Undefined symbol
+000003B2  6000 B7DA                382                          BRA         TREEDONE                * this should never be hit
+000003B6                           383  
+000003B6                           384  
+000003B6  5301                     385  b000001101              SUB.B       #1,D1                   * subtract from length
+Line 386 ERROR: Undefined symbol
+000003B8  6700 B7D4                386                          BEQ         PRINTLINE_SR            * if length is 0, fail
+000003BC  E388                     387                          LSL.L       #1,D0                   * leftshift the opcode bits
+Line 388 ERROR: Undefined symbol
+000003BE  6400 B7CE                388                          BCC         ADDL_SR                 * branch to zero-child node
+Line 389 ERROR: Undefined symbol
+000003C2  6500 B7CA                389                          BCS         PRINTLINE_SR            * branch to ones-child node
+Line 390 ERROR: Undefined symbol
+000003C6  6000 B7C6                390                          BRA         TREEDONE                * this should never be hit
+000003CA                           391  
+000003CA                           392  
+000003CA  5301                     393  b010011100              SUB.B       #1,D1                   * subtract from length
+Line 394 ERROR: Undefined symbol
+000003CC  6700 B7C0                394                          BEQ         PRINTLINE_SR            * if length is 0, fail
+000003D0  E388                     395                          LSL.L       #1,D0                   * leftshift the opcode bits
+Line 396 ERROR: Undefined symbol
+000003D2  6400 B7BA                396                          BCC         PRINTLINE_SR            * branch to zero-child node
+000003D6  6500 FF52                397                          BCS         b0100111001             * branch to ones-child node
+Line 398 ERROR: Undefined symbol
+000003DA  6000 B7B2                398                          BRA         TREEDONE                * this should never be hit
+000003DE                           399  
+000003DE                           400  
+Line 401 WARNING: END directive missing, starting address not set
+
+152 errors detected
+1 warning generated
+
+
+SYMBOL TABLE INFORMATION
+Symbol-name         Value
+-------------------------
+B                   0
+B0                  190
+B00                 F0
+B000                242
+B0000               1CC
+B00000              1B8
+B000001             304
+B0000011            2F0
+B00000110           21A
+B000001100          28
+B000001101          3B6
+B001                22E
+B01                 104
+B010                50
+B0100               206
+B01000              154
+B010001             37A
+B0100010            2DC
+B01000100           A0
+B01000101           B4
+B01001              168
+B010010             1DE
+B0100100            2A4
+B01001000           1A4
+B010010001          14
+B010011             1F2
+B0100110            C8
+B01001100           33E
+B010011000          3C
+B0100110000         366
+B0100110001         352
+B0100111            DC
+B01001110           316
+B010011100          3CA
+B0100111001         32A
+B01001110011        254
+B010011100111       118
+B0100111001110      3A2
+B01001110011100     140
+B010011100111000    8C
+B01001110011101     12C
+B010011100111010    268
+B010011101          38E
+B1                  17C
+B10                 2CC
+B100                27C
+B101                290
+B11                 2B8
+B110                78
+B111                64

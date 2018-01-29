@@ -1,0 +1,370 @@
+00000000 Starting Address
+Assembler used: EASy68K Editor/Assembler v5.15.04
+Created On: 11/20/2017 4:20:05 PM
+
+00000000                             1                                                              *Decode ADD instruction
+00000000                             2                                                              *D0 will be size
+00000000                             3                                                              *D2 holds data
+00000000                             4                                                              *D3 will be mode
+00000000                             5                                                              *D4 will be register
+00000000                             6                                                              *D5 is immediate/source address
+00000000                             7                                                             
+00000000  4280                       8                          CLR.L       D0
+00000002  4281                       9                          CLR.L       D1
+00000004  4282                      10                          CLR.L       D2
+00000006  4283                      11                          CLR.L       D3
+00000008  4284                      12                          CLR.L       D4
+0000000A  4285                      13                          CLR.L       D5
+0000000C  4286                      14                          CLR.L       D6
+0000000E  4287                      15                          CLR.L       D7
+Line 16 ERROR: Undefined symbol
+00000010  43F9 004DBB8E             16                          LEA         LINESTARTLOC,A1
+00000016                            17  
+00000016                            18                                                              *store the size on D0
+00000016  1E19                      19                          MOVE.B      (A1)+,D7
+00000018  1011                      20                          MOVE.B      (A1),D0
+0000001A  EC08                      21                          LSR.B       #6,D0
+0000001C  0200 0003                 22                          ANDI.B      #%00000011,D0           *we have the size on D0
+00000020  1E21                      23                          MOVE.B      -(A1),D7                *bring th pointer back
+00000022                            24                          
+00000022                            25                          
+00000022  1411                      26                          MOVE.B      (A1),D2                 *D2 holds data
+00000024  0202 000E                 27                          ANDI.B      #%00001110,D2
+00000028  E20A                      28                          LSR.B       #1,D2
+0000002A                            29                          
+0000002A  B43C 0000                 30                          CMP.B       #%000,D2                
+0000002E                            31                          
+0000002E                            32  
+0000002E                            33  
+0000002E  3611                      34                          MOVE.W      (A1),D3
+00000030  0243 0038                 35                          ANDI.W      #%0000000000111000,D3   *we only care about the three bits
+00000034  E60B                      36                          LSR.B       #3,D3
+00000036                            37  
+00000036  1E19                      38                          MOVE.B      (A1)+,D7
+00000038  1819                      39                          MOVE.B      (A1)+,D4                *register
+0000003A  0204 0007                 40                          ANDI.B      #%00000111,D4           *We only care about the last beat
+0000003E                            41                          
+0000003E                            42                          
+0000003E                            43  
+0000003E  4247                      44                          CLR         D7
+00000040                            45  
+00000040                            46  ADDQ_VALIDITY                                               * Lets check the data first
+00000040                            47  
+00000040  B43C 0000                 48                          CMP.B       #%000,D2                *THE DATA BITS IN ADDQ ARE ONLY 3 BITS
+00000044  6700 0016                 49                          BEQ         IT_IS_EIGHT             *THE IMMEDIATE VALUE 000 REPRESENTS EITHT 
+00000048  B43C 0001                 50                          CMP.B       #1,D2                   *CHECK THE SIZE, THE SIZE SHOUDLD BE
+0000004C  6D00 028E                 51                          BLT         ADDQ_DECODE_ERR         *BETWEEN 1 AND 8, ITS ERROR OTHERWISE
+00000050  B43C 0008                 52                          CMP.B       #8,D2
+00000054  6E00 0286                 53                          BGT         ADDQ_DECODE_ERR
+00000058  6000 0008                 54                          BRA         ADDQ_DATA_VALID
+0000005C                            55  
+0000005C                            56  IT_IS_EIGHT                 
+0000005C  5002                      57                          ADDQ.B      #8,D2                  *ADD EIGHT IN THE DATA REGISTER
+0000005E  6000 0002                 58                          BRA         ADDQ_DATA_VALID
+00000062                            59                          
+00000062                            60  
+00000062                            61  ADDQ_DATA_VALID                                             *THE DATA IS GOOD LETS CHECK THE SIZE
+00000062                            62                          
+00000062  B03C 0000                 63                          CMP.B       #%00,D0
+00000066  6700 0016                 64                          BEQ         ADDQ_SIZE_VALID         
+0000006A  B03C 0001                 65                          CMP.B       #%01,D0
+0000006E  6700 000E                 66                          BEQ         ADDQ_SIZE_VALID
+00000072  B03C 0002                 67                          CMP.B       #%10,D0
+00000076  6700 0006                 68                          BEQ         ADDQ_SIZE_VALID
+0000007A  6000 0260                 69                          BRA         ADDQ_DECODE_ERR         * if the bits are 11, its invalid
+0000007E                            70                                    
+0000007E                            71  
+0000007E                            72  ADDQ_SIZE_VALID                                             *THE SIZE IS GOOD LETS CHECK THE MODE
+0000007E                            73               
+0000007E  B63C 0000                 74                          CMP.B       #%000,D3
+00000082  6700 004E                 75                          BEQ         ADDQ_MODE_VALID
+00000086  B63C 0001                 76                          CMP.B       #%001,D3
+0000008A  6700 0026                 77                          BEQ         CHECKQ_SIZE
+0000008E  B63C 0002                 78                          CMP.B       #%010,D3
+00000092  6700 003E                 79                          BEQ         ADDQ_MODE_VALID
+00000096  B63C 0003                 80                          CMP.B       #%011,D3
+0000009A  6700 0036                 81                          BEQ         ADDQ_MODE_VALID
+0000009E  B63C 0004                 82                          CMP.B       #%100,D3
+000000A2  6700 002E                 83                          BEQ         ADDQ_MODE_VALID
+000000A6  B63C 0007                 84                          CMP.B       #%111,D3
+000000AA  6700 0012                 85                          BEQ         CHECKQ_REGISTER         *Check for register
+000000AE  6600 0022                 86                          BNE         ADDQ_MODE_VALID
+000000B2                            87                          
+000000B2                            88                          
+000000B2                            89  CHECKQ_SIZE             
+000000B2  B03C 0000                 90                          CMP.B       #%00,D0                 *IF THE SIZE IS BYTE, THE DESTINATION CANT BE AR
+000000B6  6700 0224                 91                          BEQ         ADDQ_DECODE_ERR
+000000BA  6000 0016                 92                          BRA         ADDQ_MODE_VALID       
+000000BE                            93                          
+000000BE                            94  CHECKQ_REGISTER                                             *At this point the mode is 111, 
+000000BE                            95                                                              *need to check if it is immediate
+000000BE  B83C 0000                 96                          CMP.B       #%000,D4
+000000C2  6700 000E                 97                          BEQ         ADDQ_MODE_VALID
+000000C6  B83C 0001                 98                          CMP.B       #%001,D4
+000000CA  6700 0006                 99                          BEQ         ADDQ_MODE_VALID
+000000CE  6000 020C                100                          BRA         ADDQ_DECODE_ERR           *If reach here, there is a problem
+000000D2                           101                          
+000000D2                           102                          
+000000D2                           103  ADDQ_MODE_VALID                                              
+000000D2  6000 0002                104                          BRA         ADDQ_PRINT                         
+000000D6                           105                          
+000000D6                           106  
+000000D6                           107                          
+000000D6                           108                          
+Line 109 ERROR: Undefined symbol
+000000D6  41F9 004DBB8E            109  ADDQ_PRINT              LEA         ADDQSTRING,A0
+Line 110 ERROR: Undefined symbol
+000000DC  4EB9 004DBB8E            110                          JSR         PRINT_SR
+000000E2  6000 0002                111                          BRA         PRINT_ADDQ_SIZE
+000000E6                           112  
+000000E6                           113  PRINT_ADDQ_SIZE                                                 *PRINT SIZE
+000000E6  B03C 0000                114                          CMP.B       #%00,D0
+000000EA  6700 0012                115                          BEQ         SIZE_ADDQ_B     
+000000EE  B03C 0001                116                          CMP.B       #%01,D0
+000000F2  6700 001A                117                          BEQ         SIZE_ADDQ_W
+000000F6  B03C 0002                118                          CMP.B       #%10,D0
+000000FA  6700 0022                119                          BEQ         SIZE_ADDQ_L         
+000000FE                           120                         
+000000FE                           121  SIZE_ADDQ_B   
+Line 122 ERROR: Undefined symbol
+000000FE  41F9 004DBB8E            122                          LEA         BYTESTRING,A0               *size is byte
+Line 123 ERROR: Undefined symbol
+00000104  4EB9 004DBB8E            123                          JSR         PRINT_SR
+0000010A  6000 0022                124                          BRA         PRINT_Q_VALUE               *BRANCH TO IMMEDIATE PRINT
+0000010E                           125                          
+0000010E                           126    
+0000010E                           127  SIZE_ADDQ_W  
+Line 128 ERROR: Undefined symbol
+0000010E  41F9 004DBB8E            128                          LEA         WORDSTRING,A0               *size is WORD
+Line 129 ERROR: Undefined symbol
+00000114  4EB9 004DBB8E            129                          JSR         PRINT_SR
+0000011A  6000 0012                130                          BRA         PRINT_Q_VALUE               *BRANCH TO IMMEDIATE PRINT
+0000011E                           131                          
+0000011E                           132  SIZE_ADDQ_L  
+0000011E                           133  
+Line 134 ERROR: Undefined symbol
+0000011E  41F9 004DBB8E            134                          LEA         LONGSTRING,A0               *size is LONG
+Line 135 ERROR: Undefined symbol
+00000124  4EB9 004DBB8E            135                          JSR         PRINT_SR
+0000012A  6000 0002                136                          BRA         PRINT_Q_VALUE               *BRANCH TO IMMEDIATE PRINT
+0000012E                           137                          
+0000012E                           138  
+0000012E                           139  PRINT_Q_VALUE                                                   *THIS PRINTS THE Quick VALUE between (1 and 8, inclusively)
+0000012E                           140                          
+Line 141 ERROR: Undefined symbol
+0000012E  41F9 004DBB8E            141                          LEA         POUNDSTRING,A0
+Line 142 ERROR: Undefined symbol
+00000134  4EB9 004DBB8E            142                          JSR         PRINT_SR
+0000013A  4287                     143                          CLR.L       D7
+0000013C  3E02                     144                          MOVE        D2,D7
+Line 145 ERROR: Undefined symbol
+0000013E  4EB9 004DBB8E            145                          JSR         PRINT_HEX
+00000144  6000 0002                146                          BRA         ADDQ_DEST_PRT
+00000148                           147                          
+00000148                           148  
+00000148                           149  ADDQ_DEST_PRT                                                   *now prints the destination
+00000148  B63C 0000                150                          CMP.B       #%000,D3                    
+0000014C  6700 002A                151                          BEQ         ADDQ_000                    *destination is data register
+00000150  B63C 0001                152                          CMP.B       #%001,D3
+00000154  6700 0046                153                          BEQ         ADDQ_001                    *destination is address register direct
+00000158  B63C 0002                154                          CMP.B       #%010,D3
+0000015C  6700 0062                155                          BEQ         ADDQ_010                    *destination is address register indirect
+00000160  B63C 0003                156                          CMP.B       #%011,D3
+00000164  6700 0096                157                          BEQ         ADDQ_011                    *destination is address register post increment
+00000168  B63C 0004                158                          CMP.B       #%100,D3
+0000016C  6700 00D6                159                          BEQ         ADDQ_100                    *destination is adrress register pre -decrement
+00000170  B63C 0007                160                          CMP.B       #%111,D3
+00000174  6700 0116                161                          BEQ         ADDQ_111                    *destination is absolute value
+00000178                           162                          
+00000178                           163                          
+00000178                           164                          
+00000178                           165  ADDQ_000                                                        *Destination is data register
+Line 166 ERROR: Undefined symbol
+00000178  41F9 004DBB8E            166                          LEA         COMMASTRING,A0
+Line 167 ERROR: Undefined symbol
+0000017E  4EB9 004DBB8E            167                          JSR         PRINT_SR
+Line 168 ERROR: Undefined symbol
+00000184  41F9 004DBB8E            168                          LEA         DSTRING,A0
+Line 169 ERROR: Undefined symbol
+0000018A  4EB9 004DBB8E            169                          JSR         PRINT_SR
+00000190  2E04                     170                          MOVE.L      D4,D7
+Line 171 ERROR: Undefined symbol
+00000192  4EB9 004DBB8E            171                          JSR         PRINT_HEX
+00000198  6000 014C                172                          BRA         ADDQ_DECODE_DONE
+0000019C                           173                          
+0000019C                           174  ADDQ_001                                                        *Destination is address register indirect
+Line 175 ERROR: Undefined symbol
+0000019C  41F9 004DBB8E            175                          LEA         COMMASTRING,A0
+Line 176 ERROR: Undefined symbol
+000001A2  4EB9 004DBB8E            176                          JSR         PRINT_SR
+Line 177 ERROR: Undefined symbol
+000001A8  41F9 004DBB8E            177                          LEA         ASTRING,A0
+Line 178 ERROR: Undefined symbol
+000001AE  4EB9 004DBB8E            178                          JSR         PRINT_SR
+000001B4  2E04                     179                          MOVE.L      D4,D7
+Line 180 ERROR: Undefined symbol
+000001B6  4EB9 004DBB8E            180                          JSR         PRINT_HEX
+000001BC  6000 0128                181                          BRA         ADDQ_DECODE_DONE
+000001C0                           182                          
+000001C0                           183                 
+000001C0                           184  ADDQ_010                                                        *Destination is address register indirect
+Line 185 ERROR: Undefined symbol
+000001C0  41F9 004DBB8E            185                          LEA         COMMASTRING,A0
+Line 186 ERROR: Undefined symbol
+000001C6  4EB9 004DBB8E            186                          JSR         PRINT_SR
+Line 187 ERROR: Undefined symbol
+000001CC  41F9 004DBB8E            187                          LEA         LPARENSTRING,A0
+Line 188 ERROR: Undefined symbol
+000001D2  4EB9 004DBB8E            188                          JSR         PRINT_SR
+Line 189 ERROR: Undefined symbol
+000001D8  41F9 004DBB8E            189                          LEA         ASTRING,A0
+Line 190 ERROR: Undefined symbol
+000001DE  4EB9 004DBB8E            190                          JSR         PRINT_SR
+000001E4  2E04                     191                          MOVE.L      D4,D7
+Line 192 ERROR: Undefined symbol
+000001E6  4EB9 004DBB8E            192                          JSR         PRINT_HEX
+Line 193 ERROR: Undefined symbol
+000001EC  41F9 004DBB8E            193                          LEA         RPARENSTRING,A0
+Line 194 ERROR: Undefined symbol
+000001F2  4EB9 004DBB8E            194                          JSR         PRINT_SR
+000001F8  6000 00EC                195                          BRA         ADDQ_DECODE_DONE
+000001FC                           196                          
+000001FC                           197                          
+000001FC                           198  ADDQ_011                                                         *Address register indirect postincrement
+Line 199 ERROR: Undefined symbol
+000001FC  41F9 004DBB8E            199                          LEA         COMMASTRING,A0
+Line 200 ERROR: Undefined symbol
+00000202  4EB9 004DBB8E            200                          JSR         PRINT_SR
+Line 201 ERROR: Undefined symbol
+00000208  41F9 004DBB8E            201                          LEA         LPARENSTRING,A0
+Line 202 ERROR: Undefined symbol
+0000020E  4EB9 004DBB8E            202                          JSR         PRINT_SR
+Line 203 ERROR: Undefined symbol
+00000214  41F9 004DBB8E            203                          LEA         ASTRING,A0
+Line 204 ERROR: Undefined symbol
+0000021A  4EB9 004DBB8E            204                          JSR         PRINT_SR
+00000220  2E04                     205                          MOVE.L      D4,D7
+Line 206 ERROR: Undefined symbol
+00000222  4EB9 004DBB8E            206                          JSR         PRINT_HEX
+Line 207 ERROR: Undefined symbol
+00000228  41F9 004DBB8E            207                          LEA         RPARENSTRING,A0
+Line 208 ERROR: Undefined symbol
+0000022E  4EB9 004DBB8E            208                          JSR         PRINT_SR
+Line 209 ERROR: Undefined symbol
+00000234  41F9 004DBB8E            209                          LEA         PLUSSTRING,A0
+Line 210 ERROR: Undefined symbol
+0000023A  4EB9 004DBB8E            210                          JSR         PRINT_SR
+00000240  6000 00A4                211                          BRA         ADDQ_DECODE_DONE
+00000244                           212                          
+00000244                           213  ADDQ_100                                                        *Destination pre_decrement
+Line 214 ERROR: Undefined symbol
+00000244  41F9 004DBB8E            214                          LEA         COMMASTRING,A0
+Line 215 ERROR: Undefined symbol
+0000024A  4EB9 004DBB8E            215                          JSR         PRINT_SR
+Line 216 ERROR: Undefined symbol
+00000250  41F9 004DBB8E            216                          LEA         MINUSSTRING,A0
+Line 217 ERROR: Undefined symbol
+00000256  4EB9 004DBB8E            217                          JSR         PRINT_SR
+Line 218 ERROR: Undefined symbol
+0000025C  41F9 004DBB8E            218                          LEA         LPARENSTRING,A0
+Line 219 ERROR: Undefined symbol
+00000262  4EB9 004DBB8E            219                          JSR         PRINT_SR
+Line 220 ERROR: Undefined symbol
+00000268  41F9 004DBB8E            220                          LEA         ASTRING,A0
+Line 221 ERROR: Undefined symbol
+0000026E  4EB9 004DBB8E            221                          JSR         PRINT_SR
+00000274  2E04                     222                          MOVE.L      D4,D7
+Line 223 ERROR: Undefined symbol
+00000276  4EB9 004DBB8E            223                          JSR         PRINT_HEX
+Line 224 ERROR: Undefined symbol
+0000027C  41F9 004DBB8E            224                          LEA         RPARENSTRING,A0
+Line 225 ERROR: Undefined symbol
+00000282  4EB9 004DBB8E            225                          JSR         PRINT_SR
+00000288  6000 005C                226                          BRA         ADDQ_DECODE_DONE
+0000028C                           227  
+0000028C                           228  ADDQ_111                                                        *Destination absolute value
+Line 229 ERROR: Undefined symbol
+0000028C  41F9 004DBB8E            229                          LEA         COMMASTRING,A0
+Line 230 ERROR: Undefined symbol
+00000292  4EB9 004DBB8E            230                          JSR         PRINT_SR
+00000298  B83C 0000                231                          CMP.B       #%000,D4
+0000029C  6700 000A                232                          BEQ         ADDQ_111000
+000002A0  B83C 0001                233                          CMP.B       #%001,D4
+000002A4  6700 001C                234                          BEQ         ADDQ_111001
+000002A8                           235                          
+000002A8                           236  ADDQ_111000            
+000002A8                           237                          
+Line 238 ERROR: Undefined symbol
+000002A8  41F9 004DBB8E            238                          LEA         DOLLARSTRING,A0             *IS WORD
+Line 239 ERROR: Undefined symbol
+000002AE  4EB9 004DBB8E            239                          JSR         PRINT_SR
+000002B4  4247                     240                          CLR         D7
+000002B6  3E11                     241                          MOVE.W      (A1),D7
+Line 242 ERROR: Undefined symbol
+000002B8  4EB9 004DBB8E            242                          JSR         PRINT_HEX
+000002BE  6000 0026                243                          BRA         ADDQ_DECODE_DONE
+000002C2                           244                          
+000002C2                           245  
+000002C2                           246  ADDQ_111001            
+000002C2                           247                                                                  *Is long address
+Line 248 ERROR: Undefined symbol
+000002C2  41F9 004DBB8E            248                          LEA         DOLLARSTRING,A0
+Line 249 ERROR: Undefined symbol
+000002C8  4EB9 004DBB8E            249                          JSR         PRINT_SR
+000002CE  4287                     250                          CLR.L       D7
+000002D0  2E11                     251                          MOVE.L      (A1),D7
+Line 252 ERROR: Undefined symbol
+000002D2  4EB9 004DBB8E            252                          JSR         PRINT_HEX
+000002D8  6000 000C                253                          BRA         ADDQ_DECODE_DONE
+000002DC                           254                   
+000002DC                           255                          
+000002DC                           256                                           
+000002DC                           257  
+Line 258 ERROR: Undefined symbol
+000002DC  4EB9 004DBB8E            258  ADDQ_DECODE_ERR         JSR         PRINTLINE_SR               *Something went wrong
+000002E2  6000 0002                259                          BRA         ADDQ_DECODE_DONE
+000002E6                           260                          
+000002E6                           261                          
+Line 262 ERROR: Undefined symbol
+000002E6  41F9 004DBB8E            262  ADDQ_DECODE_DONE        LEA         LINEEND,A0
+Line 263 ERROR: Undefined symbol
+000002EC  4EB9 004DBB8E            263                          JSR         PRINT_SR
+000002F2  4E75                     264                          RTS     
+000002F4                           265                          
+000002F4                           266                          
+000002F4                           267     
+000002F4                           268  
+000002F4                           269  
+Line 270 WARNING: END directive missing, starting address not set
+
+64 errors detected
+1 warning generated
+
+
+SYMBOL TABLE INFORMATION
+Symbol-name         Value
+-------------------------
+ADDQ_000            178
+ADDQ_001            19C
+ADDQ_010            1C0
+ADDQ_011            1FC
+ADDQ_100            244
+ADDQ_111            28C
+ADDQ_111000         2A8
+ADDQ_111001         2C2
+ADDQ_DATA_VALID     62
+ADDQ_DECODE_DONE    2E6
+ADDQ_DECODE_ERR     2DC
+ADDQ_DEST_PRT       148
+ADDQ_MODE_VALID     D2
+ADDQ_PRINT          D6
+ADDQ_SIZE_VALID     7E
+ADDQ_VALIDITY       40
+CHECKQ_REGISTER     BE
+CHECKQ_SIZE         B2
+IT_IS_EIGHT         5C
+PRINT_ADDQ_SIZE     E6
+PRINT_Q_VALUE       12E
+SIZE_ADDQ_B         FE
+SIZE_ADDQ_L         11E
+SIZE_ADDQ_W         10E

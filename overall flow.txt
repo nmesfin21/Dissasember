@@ -1,0 +1,54 @@
+user input {
+	User inputs a value "X" which will be added between "TEST" and ".TXT" to form a filename
+	Program checks to see if "TESTX.TXT" exists and prints error if it does not
+}
+
+file line-reading loop {
+    Read a byte from the file
+    If the read-error flag is set, end loop (go where?)
+    Add the byte to the read-in memory
+    If the last valid byte or pair of bytes was CR/LF or CRLF the line is complete
+    increment length counter
+    return to start
+}
+
+ASCII to HEX loop {
+
+}
+
+error output {
+
+
+}
+
+opcode validator {
+	
+
+}
+
+outer validation loop{
+    start counter "N" at 2
+    while N is less than the length of the bits in the current line
+    {
+	    read N bits into a register
+    	compare the N bits to a list of opcodes that is the same length
+    	if the opcode is valid
+    		jump to the opcode validator
+    	increase N
+    	return to start of while loop
+    }
+    jump to error output
+}
+
+
+
+main program {
+	user input
+	create counter for line length and allocate memory for line of text
+	{
+		-> file line-reading loop
+		
+		-> output validator
+	}
+	
+}
